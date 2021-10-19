@@ -1,44 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bankv2
 {
     class Program
     {
 
-        public static List<string> clientNames = new List<string>();
-        public static List<double> clientBalances = new List<double>();
+        //public static List<string> clientNames = new List<string>();
+        //public static List<double> clientBalances = new List<double>();
+        //public static List<Client> clientList = new List<Client>();
         public static string input;
         public static int loginIndex;
-        public static DateTime today = DateTime.Today;
-
+        //public static DateTime today = DateTime.Today;
+        //public static string today = DateTime.Today.ToShortDateString();
+        public static string today = DateTime.Today.ToString("dd/MM/yyyy");
+        //ToDo List<client>, siwtch insted if, 
+        //funkcjonalnosc historia tranzakcji, 
+        //databaseMock.cs
         static void Main(string[] args)
         {
-            Client client1 = new Client();
-            client1.name = "Jan Kowalski";
-            client1.balance = 420.00;
-            clientNames.Add(client1.name);
-            clientBalances.Add(client1.balance);
-            Client client2 = new Client();
-            client2.name = "Anita Nowak";
-            client2.balance = 6969.6969;
-            clientNames.Add(client2.name);
-            clientBalances.Add(client2.balance);
-            Client client3 = new Client();
-            client3.name = "Szaba Daba";
-            client3.balance = 777.07;
-            clientNames.Add(client3.name);
-            clientBalances.Add(client3.balance);
-            Client client4 = new Client();
-            client4.name = "test";
-            client4.balance = 1.00;
-            clientNames.Add(client4.name);
-            clientBalances.Add(client4.balance);
-
+            MockDatabase mockDatabase = new MockDatabase();
+            
 
             while (true)
             {
-                Console.WriteLine(today);
+                Console.WriteLine(today);//////////////////////////////////////////////////////////////////
+
                 Console.WriteLine("Please Login");
                 bool loggedIn = false;
                 bool loggingIn = true;
@@ -46,12 +34,27 @@ namespace Bankv2
                 while (loggingIn)
                 {
                     input = Console.ReadLine();
+                    /*
+                    var loginExists = from work1 in mockDatabase.clientList
+                                      where work1.clientName == input
+                                      select work1.clientId;
+                    */
+                    var loginExists = (from work1 in mockDatabase.clientList
+                                      where work1.clientName == input
+                                      select work1).FirstOrDefault();
 
-                    if (clientNames.Contains(input))
+                    //if (loginExists.FirstOrDefault() != 0)
+                    if (loginExists.clientId != 0)
                     {
-                        loginIndex = clientNames.IndexOf(input);
-                        Console.WriteLine("Account: {0}", clientNames[loginIndex]);
-                        Console.WriteLine("Balance: {0}", clientBalances[loginIndex]);
+                        Console.WriteLine("Account: {0}", loginExists.clientName);
+
+                        var loginBalance = (from account in mockDatabase.accountList
+                                           where account.clientId.Contains(loginExists.clientId)
+                                           select account.accountBalance).FirstOrDefault();
+
+                        loginIndex = loginExists.clientId;
+
+                        Console.WriteLine("Balance: {0}", loginBalance);
                         Console.WriteLine();
                         loggedIn = true;
                         loggingIn = false;
@@ -64,13 +67,12 @@ namespace Bankv2
 
                 while (loggedIn)
                 {
-                    bool selectedNotExistingOperation = true;
-
                     Console.WriteLine("What would you like to do?");
                     Console.WriteLine("Options:");
                     Console.WriteLine("1. Transfer funds");
                     Console.WriteLine("2. Logout");
                     Console.WriteLine();
+                    bool selectedNotExistingOperation = true;
                     input = Console.ReadLine();
 
                     if (input == "1" || input == "Transfer funds")
@@ -83,7 +85,11 @@ namespace Bankv2
                         {
                             string input1 = Console.ReadLine();
 
-                            if (clientNames.Contains(input1))
+                            var clientExists = from work1 in mockDatabase.clientList
+                                               where work1.clientName == input1
+                                               select work1.clientName;
+
+                            if (clientExists.FirstOrDefault() != string.Empty || clientExists.FirstOrDefault() != null)
                             {
                                 Console.WriteLine("How much?");
 
@@ -91,17 +97,30 @@ namespace Bankv2
                                 {
                                     string input2 = Console.ReadLine();
 
-                                    if (double.Parse(input2) > clientBalances[loginIndex])
+                                    var amountExists = from account in mockDatabase.accountList
+                                                       where account.clientId.Contains(loginIndex)
+                                                       select account.accountBalance;
+
+                                    if (decimal.Parse(input2) > amountExists.FirstOrDefault())
                                     {
                                         Console.WriteLine("Not enough available funds. Try again.");
-                                        Console.WriteLine("Your balance is {0}", clientBalances[loginIndex]);
+                                        Console.WriteLine("Your balance is {0}", amountExists.FirstOrDefault());
                                     }
                                     else
                                     {
-                                        clientBalances[loginIndex] = clientBalances[loginIndex] - double.Parse(input2);
-                                        int targetIndex = clientNames.IndexOf(input1);
-                                        clientBalances[targetIndex] = clientBalances[targetIndex] + double.Parse(input2);
+                                        int sourceIndex = mockDatabase.accountList.IndexOf((from account in mockDatabase.accountList
+                                                                                            where account.accountBalance == amountExists.FirstOrDefault()
+                                                                                            select account).FirstOrDefault());//== loginIndex
 
+                                        mockDatabase.accountList[sourceIndex].accountBalance -= decimal.Parse(input2);
+
+                                        int targetIndex = mockDatabase.accountList.IndexOf((from account in mockDatabase.accountList
+                                                                                            from client in mockDatabase.clientList
+                                                                                            where client.clientName == clientExists.FirstOrDefault()
+                                                                                            where account.clientId.Contains(client.clientId)
+                                                                                            select account).FirstOrDefault());
+
+                                        mockDatabase.accountList[targetIndex].accountBalance += decimal.Parse(input2);
                                         Console.WriteLine("Operation completed.");
                                         Console.WriteLine();
                                         transfering = false;
@@ -112,6 +131,7 @@ namespace Bankv2
                             {
                                 Console.WriteLine("No account with that name. Try again.");
                             }
+                            
                         }
                     }
 

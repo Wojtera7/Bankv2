@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Bankv2
 {
-    class Client
+    class AccountTransfer
     {
-        public string clientName;
-        public int clientId;
-        public List<int> accountId = new List<int>();
-        
+        public int accountId;
+        public int transferId;
     }
 }
