@@ -11,5 +11,24 @@ namespace Bankv2
         public decimal transferAmount;
         public int transferId;
         public DateTime transferDate;
+
+
+
+        public void MakeTransfer()
+        {
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
     }
 }

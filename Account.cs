@@ -11,6 +11,7 @@ namespace Bankv2
         public decimal accountBalance;
         public int accountId;
         public DateTime accountLastUpdate;
-        public List<int> clientId = new List<int>();
+        public List<int> clientIdList = new List<int>();
+        public List<Transfer> transferList = new List<Transfer>();
     }
 }

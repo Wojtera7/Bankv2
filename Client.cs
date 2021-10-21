@@ -10,7 +10,7 @@ namespace Bankv2
     {
         public string clientName;
         public int clientId;
-        public List<int> accountId = new List<int>();
+        public List<int> accountIdList = new List<int>();
         
     }
 }
