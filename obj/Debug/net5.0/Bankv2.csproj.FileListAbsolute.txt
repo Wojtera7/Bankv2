@@ -1,0 +1,16 @@
+C:\Users\AsRock\source\repos\Bankv2\bin\Debug\net5.0\Bankv2.exe
+C:\Users\AsRock\source\repos\Bankv2\bin\Debug\net5.0\Bankv2.deps.json
+C:\Users\AsRock\source\repos\Bankv2\bin\Debug\net5.0\Bankv2.runtimeconfig.json
+C:\Users\AsRock\source\repos\Bankv2\bin\Debug\net5.0\Bankv2.runtimeconfig.dev.json
+C:\Users\AsRock\source\repos\Bankv2\bin\Debug\net5.0\Bankv2.dll
+C:\Users\AsRock\source\repos\Bankv2\bin\Debug\net5.0\ref\Bankv2.dll
+C:\Users\AsRock\source\repos\Bankv2\bin\Debug\net5.0\Bankv2.pdb
+C:\Users\AsRock\source\repos\Bankv2\obj\Debug\net5.0\Bankv2.csproj.AssemblyReference.cache
+C:\Users\AsRock\source\repos\Bankv2\obj\Debug\net5.0\Bankv2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AsRock\source\repos\Bankv2\obj\Debug\net5.0\Bankv2.AssemblyInfoInputs.cache
+C:\Users\AsRock\source\repos\Bankv2\obj\Debug\net5.0\Bankv2.AssemblyInfo.cs
+C:\Users\AsRock\source\repos\Bankv2\obj\Debug\net5.0\Bankv2.csproj.CoreCompileInputs.cache
+C:\Users\AsRock\source\repos\Bankv2\obj\Debug\net5.0\Bankv2.dll
+C:\Users\AsRock\source\repos\Bankv2\obj\Debug\net5.0\ref\Bankv2.dll
+C:\Users\AsRock\source\repos\Bankv2\obj\Debug\net5.0\Bankv2.pdb
+C:\Users\AsRock\source\repos\Bankv2\obj\Debug\net5.0\Bankv2.genruntimeconfig.cache
