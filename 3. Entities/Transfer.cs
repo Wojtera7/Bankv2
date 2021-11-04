@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bankv2
+namespace Bankv2.Entities
 {
     class Transfer
     {
@@ -14,13 +14,15 @@ namespace Bankv2
         public decimal transferAmount;
         public DateTime transferDate;
 
-        public Transfer(int transferId, int fromWhomId, int toWhomId, decimal transferAmount, DateTime transferDate)
+        //public int Asd { get; init; }
+
+        public Transfer(int transferId, int fromWhomId, int toWhomId, decimal transferAmount, DateTime? transferDate = null)
         {
             this.transferId = transferId;
             this.fromWhomId = fromWhomId;
             this.toWhomId = toWhomId;
             this.transferAmount = transferAmount;
-            this.transferDate = transferDate;
+            this.transferDate = transferDate ?? DateTime.Now;
         }
 
         /*

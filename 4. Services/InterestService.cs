@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Bankv2.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bankv2
+namespace Bankv2.Services
 {
     class InterestService
     {

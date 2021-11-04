@@ -1,18 +1,18 @@
-﻿using System;
+﻿using Bankv2.Entities;
+using Bankv2.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bankv2
+namespace Bankv2.Database
 {
-    class MockDatabase
+    class MockDatabase : IDatabase
     {
         public List<Client> clientList = new List<Client>();
         public List<Account> accountList = new List<Account>();
         public List<TransferService> transferServiceList = new List<TransferService>();
-        public List<ClientAccount> clientAccountList = new List<ClientAccount>();
-        public List<AccountTransfer> accountTransferList = new List<AccountTransfer>();
         public List<Transfer> transferList = new List<Transfer>();
 
         public int clientIdIterator = 5;
@@ -32,10 +32,6 @@ namespace Bankv2
             account1.accountLastUpdate = DateTime.Today;
             account1.clientIdList.Add(1);
             accountList.Add(account1);
-            ClientAccount clientaccount1 = new ClientAccount();
-            clientaccount1.clientId = client1.clientId;
-            clientaccount1.accountId = account1.accountId;
-            clientAccountList.Add(clientaccount1);
 
 
             Client client2 = new Client();
@@ -49,10 +45,6 @@ namespace Bankv2
             account2.accountLastUpdate = DateTime.Parse("01.09.2021");
             account2.clientIdList.Add(2);
             accountList.Add(account2);
-            ClientAccount clientaccount2 = new ClientAccount();
-            clientaccount2.clientId = client2.clientId;
-            clientaccount2.accountId = account2.accountId;
-            clientAccountList.Add(clientaccount2);
 
 
             Client client3 = new Client();
@@ -66,10 +58,6 @@ namespace Bankv2
             account3.accountLastUpdate = DateTime.Parse("21.08.2021");
             account3.clientIdList.Add(3);
             accountList.Add(account3);
-            ClientAccount clientaccount3 = new ClientAccount();
-            clientaccount3.clientId = client3.clientId;
-            clientaccount3.accountId = account3.accountId;
-            clientAccountList.Add(clientaccount3);
 
 
             Client client4 = new Client();
@@ -83,57 +71,8 @@ namespace Bankv2
             account4.accountLastUpdate = DateTime.Today;
             account4.clientIdList.Add(4);
             accountList.Add(account4);
-            ClientAccount clientaccount4 = new ClientAccount();
-            clientaccount4.clientId = client4.clientId;
-            clientaccount4.accountId = account4.accountId;
-            clientAccountList.Add(clientaccount4);
 
 
-            //Transfer transfer = new Transfer(mockDatabase.transferList.Count, sourceIndex, targetIndex, howMuch, DateTime.UtcNow);
-            //mockDatabase.transferList.Add(transfer);
-            //mockDatabase.accountList[sourceIndex].transferList.Add(transfer);
-            //mockDatabase.accountList[targetIndex].transferList.Add(transfer);
-            /*
-            Transfer transfer1 = new Transfer(transferList.Count, 0, 1, 12, DateTime.Parse("10.10.2010 10:10:10"));
-            transferList.Add(transfer1);
-            accountList[0].transferList.Add(transfer1);
-            accountList[1].transferList.Add(transfer1);
-
-            Transfer transfer2 = new Transfer(transferList.Count, 1, 0, 21, DateTime.Parse("11.11.2011 11:11:11"));
-            transferList.Add(transfer2);
-            accountList[1].transferList.Add(transfer2);
-            accountList[0].transferList.Add(transfer2);
-
-            Transfer transfer3 = new Transfer(transferList.Count, 0, 2, 13, DateTime.Parse("13.03.2013 13:13:13"));
-            transferList.Add(transfer3);
-            accountList[0].transferList.Add(transfer3);
-            accountList[2].transferList.Add(transfer3);
-
-            Transfer transfer4 = new Transfer(transferList.Count, 2, 1, 32, DateTime.Parse("01.01.2001 08:08:08"));
-            transferList.Add(transfer4);
-            accountList[2].transferList.Add(transfer4);
-            accountList[1].transferList.Add(transfer4);
-
-            Transfer transfer5 = new Transfer(transferList.Count, 2, 3, 34, DateTime.Parse("02.02.2002 09:09:09"));
-            transferList.Add(transfer5);
-            accountList[2].transferList.Add(transfer5);
-            accountList[3].transferList.Add(transfer5);
-
-            Transfer transfer6 = new Transfer(transferList.Count, 3, 0, 41, DateTime.Parse("14.04.2014 14:14:14"));
-            transferList.Add(transfer6);
-            accountList[3].transferList.Add(transfer6);
-            accountList[0].transferList.Add(transfer6);
-
-            Transfer transfer7 = new Transfer(transferList.Count, 3, 1, 42, DateTime.Parse("24.04.2014 15:15:15"));
-            transferList.Add(transfer7);
-            accountList[3].transferList.Add(transfer7);
-            accountList[1].transferList.Add(transfer7);
-
-            Transfer transfer8 = new Transfer(transferList.Count, 3, 2, 43, DateTime.Parse("04.04.2014 16:16:16"));
-            transferList.Add(transfer8);
-            accountList[3].transferList.Add(transfer8);
-            accountList[2].transferList.Add(transfer8);
-            */
             Transfer transfer1 = new Transfer(transferList.Count, 1, 2, 12, DateTime.Parse("10.10.2010 10:10:10"));
             transferList.Add(transfer1);
             accountList[0].transferList.Add(transfer1);
@@ -173,17 +112,6 @@ namespace Bankv2
             transferList.Add(transfer8);
             accountList[3].transferList.Add(transfer8);
             accountList[2].transferList.Add(transfer8);
-
-
-
-
-
-
-
-
-
-
-
         }
     }
 }
